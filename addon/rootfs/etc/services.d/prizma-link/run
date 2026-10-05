@@ -1,0 +1,19 @@
+#!/usr/bin/with-contenv bashio
+set -euo pipefail
+
+if ! bashio::services.available "mqtt"; then
+    bashio::exit.nok "Der offizielle MQTT-Dienst ist nicht verfügbar. Mosquitto Broker installieren und starten."
+fi
+
+export PRIZMA_MQTT_HOST
+export PRIZMA_MQTT_PORT
+export PRIZMA_MQTT_USERNAME
+export PRIZMA_MQTT_PASSWORD
+PRIZMA_MQTT_HOST="$(bashio::services mqtt host)"
+PRIZMA_MQTT_PORT="$(bashio::services mqtt port)"
+PRIZMA_MQTT_USERNAME="$(bashio::services mqtt username)"
+PRIZMA_MQTT_PASSWORD="$(bashio::services mqtt password)"
+export PYTHONPATH=/opt/prizma-link/src
+
+python3 -m prizma_link.cli pair-all --best-effort --config /data/options.json
+exec python3 -m prizma_link.cli run --config /data/options.json

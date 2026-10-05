@@ -1,0 +1,38 @@
+name: Prizma Link
+version: 0.1.13
+slug: prizma_link
+description: Lokale Bluetooth-Classic-SPP-Bridge für Prizma-Trockensalzgeneratoren
+url: https://github.com/smartathomeat/prizma-link
+arch:
+  - aarch64
+  - amd64
+startup: application
+boot: auto
+stage: experimental
+init: false
+host_dbus: true
+hassio_api: true
+services:
+  - mqtt:need
+options:
+  devices: []
+  safe_mode: true
+  allow_start: false
+  poll_interval: 1.0
+  command_timeout: 3.0
+  reconnect_max_seconds: 60
+  log_level: info
+  mqtt_discovery_prefix: homeassistant
+schema:
+  devices:
+    - name: str
+      address: match(^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$)
+      model: list(auto|prizsalt|multisalt)
+      pin: password
+  safe_mode: bool
+  allow_start: bool
+  poll_interval: float(0.5,60)
+  command_timeout: float(1,30)
+  reconnect_max_seconds: int(1,300)
+  log_level: list(debug|info|warning|error)
+  mqtt_discovery_prefix: str

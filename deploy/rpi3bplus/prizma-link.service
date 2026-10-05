@@ -1,0 +1,29 @@
+[Unit]
+Description=PRIZMA Link Bluetooth Classic to MQTT bridge
+Documentation=file:/usr/local/share/doc/prizma-link-rpi3bplus.md
+After=bluetooth.service network-online.target
+Wants=bluetooth.service network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+EnvironmentFile=/etc/prizma-link/prizma-link.env
+ExecStartPre=/usr/bin/test -s /etc/prizma-link/config.yaml
+ExecStart=/usr/local/bin/prizma-link run --config /etc/prizma-link/config.yaml
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=15
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_BLUETOOTH
+LockPersonality=true
+MemoryDenyWriteExecute=true
+
+[Install]
+WantedBy=multi-user.target

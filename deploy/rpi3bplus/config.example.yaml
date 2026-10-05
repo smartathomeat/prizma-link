@@ -1,0 +1,24 @@
+transport: bluez
+devices:
+  - name: PRIZSALT Generator 1
+    address: "AA:BB:CC:DD:EE:01"
+    model: auto
+    pin: "1234"
+  - name: PRIZSALT Generator 2
+    address: "AA:BB:CC:DD:EE:02"
+    model: auto
+    pin: "1234"
+
+# Bis zur separaten Vor-Ort-Abnahme beider Generatoren nicht ändern.
+safe_mode: true
+allow_start: false
+poll_interval: 1.0
+command_timeout: 3.0
+reconnect_max_seconds: 60
+log_level: info
+
+mqtt:
+  host: homeassistant.local
+  port: 1883
+  discovery_prefix: homeassistant
+  client_id: prizma-link-rpi3bplus

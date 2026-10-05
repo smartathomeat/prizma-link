@@ -1,0 +1,10 @@
+configuration:
+  devices:
+    name: Geräte
+    description: Generatoren mit eigener Bluetooth-MAC-Adresse
+  safe_mode:
+    name: Safe Mode
+    description: Blockiert sämtliche Schreibtelegramme
+  allow_start:
+    name: START erlauben
+    description: Zusätzliche Freigabe; bleibt ohne verifiziertes Schreibprotokoll wirkungslos

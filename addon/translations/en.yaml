@@ -1,0 +1,10 @@
+configuration:
+  devices:
+    name: Devices
+    description: Generators with their own Bluetooth MAC address
+  safe_mode:
+    name: Safe mode
+    description: Blocks every write telegram
+  allow_start:
+    name: Allow START
+    description: Additional gate; has no effect without a verified write protocol

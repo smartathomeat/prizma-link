@@ -1,0 +1,10 @@
+[Unit]
+Description=Weekly maintenance restart for PRIZMA Link bridge
+Documentation=file:/usr/local/share/doc/prizma-link-rpi3bplus.md
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/systemctl try-restart prizma-link.service
+TimeoutStartSec=45

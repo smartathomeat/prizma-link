@@ -1,0 +1,89 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "prizma-link"
+version = "0.1.13"
+description = "Local Bluetooth Classic RFCOMM bridge for Prizma salt generators"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "smartathome®"}]
+keywords = ["home-assistant", "bluetooth-classic", "mqtt", "raspberry-pi"]
+dependencies = [
+  "aiomqtt>=2.3,<3",
+  "dbus-next>=0.2.3,<0.3",
+  "PyYAML>=6.0,<7",
+]
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.10,<2",
+  "pytest>=8,<9",
+  "pytest-asyncio>=0.23,<1",
+  "ruff>=0.6,<1",
+  "types-PyYAML>=6.0,<7",
+]
+
+[project.scripts]
+prizma-link = "prizma_link.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/smartathomeat/prizma-link"
+Documentation = "https://github.com/smartathomeat/prizma-link#readme"
+Issues = "https://github.com/smartathomeat/prizma-link/issues"
+Source = "https://github.com/smartathomeat/prizma-link"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/prizma_link"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/CHANGELOG.md",
+  "/CONTRIBUTING.md",
+  "/LICENSE",
+  "/README.md",
+  "/requirements.lock",
+  "/SECURITY.md",
+  "/TRADEMARKS.md",
+  "/addon",
+  "/deploy",
+  "/pyproject.toml",
+  "/src",
+  "/tests",
+  "/tools",
+  "/uv.lock",
+]
+exclude = [
+  "/addon/bridge",
+  "*.jsonl",
+  "*.local.yaml",
+  ".deploy-*-config.yaml",
+  "tools/macos_prism_rfcomm_helper",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC", "RUF"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/prizma_link/bluez.py" = ["F722", "F821", "UP037"]
+"src/prizma_link/pairing.py" = ["F722", "F821", "UP037"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["prizma_link"]
+mypy_path = "src"
+
+[[tool.mypy.overrides]]
+module = ["prizma_link.bluez", "prizma_link.pairing"]
+ignore_errors = true

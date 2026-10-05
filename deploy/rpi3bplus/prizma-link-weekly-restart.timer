@@ -1,0 +1,13 @@
+[Unit]
+Description=Restart PRIZMA Link every Sunday at 03:30
+Documentation=file:/usr/local/share/doc/prizma-link-rpi3bplus.md
+
+[Timer]
+OnCalendar=Sun *-*-* 03:30:00
+AccuracySec=1min
+RandomizedDelaySec=0
+Persistent=false
+Unit=prizma-link-weekly-restart.service
+
+[Install]
+WantedBy=timers.target

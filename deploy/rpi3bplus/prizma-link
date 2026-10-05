@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+
+export PYTHONPATH=/opt/prizma-link/app/src
+exec /opt/prizma-link/venv/bin/python -m prizma_link.cli "$@"
